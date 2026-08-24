@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rodha Video Downloader</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title-section">
+        <h1>🎥 Video Downloader</h1>
+        <p class="subtitle">Rodha Video Downloader</p>
+      </div>
+      <button id="settingsBtn" class="settings-btn" title="Settings">⚙️</button>
+    </div>
+
+    <!-- Settings Panel -->
+    <div id="settingsPanel" class="settings-panel hidden">
+      <div class="settings-content">
+        <h2>Settings</h2>
+        
+        <div class="setting-item">
+          <label for="autoDownload">
+            <input type="checkbox" id="autoDownload">
+            Auto-download videos (when enabled)
+          </label>
+        </div>
+
+        <div class="setting-item">
+          <label for="notifications">
+            <input type="checkbox" id="notifications" checked>
+            Show download notifications
+          </label>
+        </div>
+
+        <div class="settings-actions">
+          <button id="saveSettingsBtn" class="btn btn-primary">Save Settings</button>
+          <button id="closeSettingsBtn" class="btn btn-secondary">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent" class="main-content">
+      <!-- Status Section -->
+      <div id="statusSection" class="status-section">
+        <p id="statusMessage" class="status-message">🔍 Searching for videos...</p>
+        <div class="loading-spinner"></div>
+      </div>
+
+      <!-- Videos List -->
+      <div id="videosContainer" class="videos-container hidden">
+        <div class="videos-header">
+          <h2 id="videoCount">Found 0 videos</h2>
+          <button id="refreshBtn" class="btn btn-small" title="Refresh video list">🔄</button>
+        </div>
+        
+        <div id="videosList" class="videos-list">
+          <!-- Videos will be populated here -->
+        </div>
+      </div>
+
+      <!-- No Videos Found -->
+      <div id="noVideosSection" class="no-videos hidden">
+        <div class="no-videos-icon">📭</div>
+        <p>No videos detected on this page</p>
+        <small>Make sure the page has loaded completely and try refreshing</small>
+      </div>
+
+      <!-- Error Section -->
+      <div id="errorSection" class="error-section hidden">
+        <p id="errorMessage" class="error-message">⚠️ An error occurred</p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <small>Works on: rodha.co.in</small>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
