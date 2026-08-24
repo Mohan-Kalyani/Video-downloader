@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "Rodha Video Downloader",
+  "version": "1.0.0",
+  "description": "Download videos from Rodha.co.in live classes",
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "tabs",
+    "webRequest",
+    "downloads"
+  ],
+  "host_permissions": [
+    "https://www.rodha.co.in/*",
+    "https://*.rodha.co.in/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.rodha.co.in/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/icon16.png",
+      "48": "images/icon48.png",
+      "128": "images/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  }
+}
