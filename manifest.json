@@ -1,14 +1,19 @@
 {
   "manifest_version": 3,
   "name": "Rodha Video Downloader",
-  "version": "1.0.0",
-  "description": "Download videos from Rodha.co.in live classes",
+  "version": "1.1.0",
+  "description": "Download videos from Rodha.co.in live classes - Now with tablet support!",
   "permissions": [
     "scripting",
     "activeTab",
     "tabs",
     "webRequest",
-    "downloads"
+    "downloads",
+    "storage"
+  ],
+  "optional_permissions": [
+    "nativeMessaging",
+    "webRequest"
   ],
   "host_permissions": [
     "https://www.rodha.co.in/*",
@@ -20,11 +25,12 @@
   "content_scripts": [
     {
       "matches": ["https://www.rodha.co.in/*"],
-      "js": ["content.js"]
+      "js": ["content.js", "tablet-utilities.js"]
     }
   ],
   "action": {
     "default_popup": "popup.html",
+    "default_title": "Rodha Video Downloader",
     "default_icon": {
       "16": "images/icon16.png",
       "48": "images/icon48.png",
@@ -35,5 +41,14 @@
     "16": "images/icon16.png",
     "48": "images/icon48.png",
     "128": "images/icon128.png"
+  },
+  "commands": {
+    "toggle-popup": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+V",
+        "mac": "MacCtrl+Shift+V"
+      },
+      "description": "Toggle video downloader popup"
+    }
   }
 }
