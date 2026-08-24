@@ -1,9 +1,11 @@
 /**
  * Popup Script for Rodha Video Downloader
  * Manages the popup UI and user interactions
+ * Tablet-optimized with responsive design and touch support
  */
 
 let currentVideos = [];
+let isTablet = false;
 
 // DOM Elements
 const statusSection = document.getElementById('statusSection');
@@ -24,10 +26,69 @@ const closeSettingsBtn = document.getElementById('closeSettingsBtn');
 
 // Initialize popup
 document.addEventListener('DOMContentLoaded', () => {
+  detectDeviceType();
+  applyDeviceOptimizations();
   loadSettings();
   requestVideosFromContent();
   setupEventListeners();
 });
+
+/**
+ * Detect if device is a tablet
+ */
+function detectDeviceType() {
+  const userAgent = navigator.userAgent.toLowerCase();
+  const isAndroidTablet = userAgent.includes('android') && 
+                         !userAgent.includes('mobile');
+  const isIPad = userAgent.includes('ipad') || 
+                (userAgent.includes('mac') && navigator.maxTouchPoints > 4);
+  isTablet = isAndroidTablet || isIPad;
+  
+  if (isTablet) {
+    document.documentElement.classList.add('is-tablet');
+    console.log('📱 Tablet mode enabled');
+  }
+}
+
+/**
+ * Apply device-specific optimizations
+ */
+function applyDeviceOptimizations() {
+  if (isTablet) {
+    // Optimize for touch
+    optimizeForTouch();
+    // Adjust popup size for tablet
+    adjustPopupSize();
+  }
+}
+
+/**
+ * Optimize interface for touch devices
+ */
+function optimizeForTouch() {
+  if (!('ontouchstart' in window)) return;
+  
+  document.documentElement.classList.add('touch-enabled');
+  
+  // Enhance all interactive elements for touch
+  const buttons = document.querySelectorAll('button');
+  buttons.forEach(btn => {
+    btn.style.minHeight = '44px';
+    btn.style.minWidth = '44px';
+    btn.style.padding = '12px 16px';
+  });
+}
+
+/**
+ * Adjust popup size for tablet viewport
+ */
+function adjustPopupSize() {
+  if (window.innerWidth >= 768) {
+    // Large tablet - wider popup
+    document.body.style.minWidth = '600px';
+    document.body.style.maxWidth = '900px';
+  }
+}
 
 /**
  * Setup event listeners
@@ -37,6 +98,11 @@ function setupEventListeners() {
   settingsBtn.addEventListener('click', toggleSettings);
   closeSettingsBtn.addEventListener('click', closeSettings);
   saveSettingsBtn.addEventListener('click', saveSettings);
+  
+  // Handle orientation changes on tablets
+  window.addEventListener('orientationchange', () => {
+    setTimeout(adjustPopupSize, 100);
+  });
 }
 
 /**
@@ -103,12 +169,12 @@ function createVideoElement(video, index) {
   div.className = 'video-item';
   div.id = `video-${index}`;
 
-  const titleLength = 50;
+  const titleLength = isTablet ? 75 : 50;
   const shortTitle = video.title.length > titleLength 
     ? video.title.substring(0, titleLength) + '...' 
     : video.title;
 
-  const urlLength = 45;
+  const urlLength = isTablet ? 60 : 45;
   const shortUrl = video.url.length > urlLength
     ? video.url.substring(0, urlLength) + '...'
     : video.url;
@@ -199,7 +265,7 @@ function copyUrl(index) {
       btn.textContent = originalText;
     }, 2000);
   }).catch(() => {
-    alert('Failed to copy URL');
+    showError('Failed to copy URL');
   });
 }
 
@@ -212,7 +278,7 @@ function highlightVideo(index) {
       action: 'highlightVideo',
       index: index
     }).catch(() => {
-      alert('Could not highlight video');
+      showError('Could not highlight video');
     });
   });
 }
@@ -243,7 +309,7 @@ function showError(message) {
  * Load settings from storage
  */
 function loadSettings() {
-  chrome.storage.sync.get(['autoDownload', 'notifications'], (settings) => {
+  chrome.storage.sync.get(['autoDownload', 'notifications', 'downloadMethod'], (settings) => {
     autoDownloadCheckbox.checked = settings.autoDownload || false;
     notificationsCheckbox.checked = settings.notifications !== false;
   });

@@ -1,5 +1,6 @@
 /**
  * Popup CSS for Rodha Video Downloader
+ * Tablet-optimized responsive design with touch support
  */
 
 * {
@@ -55,10 +56,18 @@ body {
   cursor: pointer;
   border-radius: 6px;
   transition: all 0.2s ease;
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
 }
 
 .settings-btn:hover {
   background: rgba(255, 255, 255, 0.3);
+}
+
+.settings-btn:active {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(0.95);
 }
 
 /* Main Content */
@@ -66,6 +75,7 @@ body {
   flex: 1;
   overflow-y: auto;
   padding: 16px;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Status Section */
@@ -120,6 +130,7 @@ body {
   gap: 12px;
   max-height: 450px;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .videos-list::-webkit-scrollbar {
@@ -148,10 +159,17 @@ body {
   transition: all 0.2s ease;
 }
 
-.video-item:hover {
-  background: #f5f5f5;
+.video-item:active {
+  background: #f0f0f0;
   border-color: #667eea;
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+}
+
+@media (hover: hover) {
+  .video-item:hover {
+    background: #f5f5f5;
+    border-color: #667eea;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+  }
 }
 
 .video-info {
@@ -209,6 +227,12 @@ body {
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-primary {
@@ -216,8 +240,15 @@ body {
   color: white;
 }
 
-.btn-primary:hover:not(:disabled) {
+.btn-primary:active:not(:disabled) {
   background: #5568d3;
+  transform: scale(0.95);
+}
+
+@media (hover: hover) {
+  .btn-primary:hover:not(:disabled) {
+    background: #5568d3;
+  }
 }
 
 .btn-secondary {
@@ -225,8 +256,15 @@ body {
   color: #333;
 }
 
-.btn-secondary:hover:not(:disabled) {
+.btn-secondary:active:not(:disabled) {
   background: #e0e0e0;
+  transform: scale(0.95);
+}
+
+@media (hover: hover) {
+  .btn-secondary:hover:not(:disabled) {
+    background: #e0e0e0;
+  }
 }
 
 .btn-download,
@@ -236,15 +274,26 @@ body {
   background: #f0f0f0;
   color: #333;
   font-size: 12px;
-  padding: 6px 8px;
+  padding: 8px 12px;
 }
 
-.btn-download:hover:not(:disabled),
-.btn-copy:hover:not(:disabled),
-.btn-highlight:hover:not(:disabled),
-.btn-small:hover:not(:disabled) {
+.btn-download:active:not(:disabled),
+.btn-copy:active:not(:disabled),
+.btn-highlight:active:not(:disabled),
+.btn-small:active:not(:disabled) {
   background: #667eea;
   color: white;
+  transform: scale(0.95);
+}
+
+@media (hover: hover) {
+  .btn-download:hover:not(:disabled),
+  .btn-copy:hover:not(:disabled),
+  .btn-highlight:hover:not(:disabled),
+  .btn-small:hover:not(:disabled) {
+    background: #667eea;
+    color: white;
+  }
 }
 
 .btn:disabled {
@@ -334,13 +383,17 @@ body {
   font-size: 14px;
   color: #333;
   cursor: pointer;
+  min-height: 44px;
+  padding: 8px;
+  touch-action: manipulation;
 }
 
 .setting-item input[type="checkbox"] {
-  margin-right: 8px;
+  margin-right: 12px;
   cursor: pointer;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
+  accent-color: #667eea;
 }
 
 .settings-actions {
@@ -351,7 +404,7 @@ body {
 
 .settings-actions .btn {
   flex: 1;
-  padding: 10px;
+  padding: 12px;
   font-size: 13px;
 }
 
@@ -368,6 +421,14 @@ body {
 /* Utility Classes */
 .hidden {
   display: none !important;
+}
+
+.touch-enabled {
+  /* Touch mode enabled */
+}
+
+.is-tablet {
+  /* Tablet mode active */
 }
 
 /* Animations */
@@ -402,8 +463,8 @@ body {
   }
 }
 
-/* Responsive */
-@media (max-width: 600px) {
+/* Responsive - Mobile Phone */
+@media (max-width: 480px) {
   body {
     width: 100%;
   }
@@ -412,7 +473,185 @@ body {
     height: auto;
   }
 
+  .header {
+    padding: 12px;
+  }
+
+  .title-section h1 {
+    font-size: 16px;
+  }
+
+  .main-content {
+    padding: 12px;
+  }
+
   .videos-list {
-    max-height: 300px;
+    max-height: 250px;
+    gap: 10px;
+  }
+
+  .video-item {
+    padding: 10px;
+  }
+
+  .video-actions {
+    gap: 4px;
+  }
+
+  .btn {
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+}
+
+/* Responsive - Tablet Portrait (600px - 900px) */
+@media (min-width: 600px) and (orientation: portrait) {
+  body {
+    width: 600px;
+  }
+
+  .header {
+    padding: 20px;
+  }
+
+  .title-section h1 {
+    font-size: 20px;
+  }
+
+  .main-content {
+    padding: 20px;
+  }
+
+  .videos-list {
+    max-height: 500px;
+    gap: 14px;
+  }
+
+  .video-item {
+    padding: 14px;
+  }
+
+  .video-title {
+    font-size: 15px;
+  }
+
+  .btn {
+    padding: 10px 14px;
+    font-size: 13px;
+    min-height: 48px;
+    min-width: 48px;
+  }
+
+  .settings-content {
+    max-width: 450px;
+    padding: 28px;
+  }
+}
+
+/* Responsive - Tablet Landscape (900px+) */
+@media (min-width: 900px) {
+  body {
+    width: 800px;
+  }
+
+  .header {
+    padding: 24px;
+  }
+
+  .title-section h1 {
+    font-size: 22px;
+  }
+
+  .main-content {
+    padding: 24px;
+  }
+
+  .videos-list {
+    max-height: 600px;
+    gap: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .video-item {
+    padding: 16px;
+  }
+
+  .video-title {
+    font-size: 16px;
+  }
+
+  .btn {
+    padding: 12px 16px;
+    font-size: 14px;
+    min-height: 50px;
+    min-width: 50px;
+  }
+
+  .settings-content {
+    max-width: 500px;
+    padding: 32px;
+  }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .btn {
+    min-height: 48px;
+    padding: 12px 16px;
+  }
+
+  .settings-btn {
+    min-height: 48px;
+  }
+
+  .setting-item label {
+    min-height: 48px;
+  }
+
+  /* Remove hover effects on touch */
+  .video-item:hover {
+    background: #f9f9f9;
+    border-color: #e0e0e0;
+    box-shadow: none;
+  }
+
+  /* Disable double-tap zoom on interactive elements */
+  button, a, input {
+    touch-action: manipulation;
+  }
+}
+
+/* Dark mode support (future enhancement) */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #1a1a1a;
+  }
+
+  .container {
+    background: #2d2d2d;
+    color: #e0e0e0;
+  }
+
+  .video-item {
+    background: #3a3a3a;
+    border-color: #4a4a4a;
+  }
+
+  .video-item:active {
+    background: #454545;
+  }
+
+  .video-title {
+    color: #e0e0e0;
+  }
+
+  .video-url {
+    color: #999;
+  }
+
+  .error-message {
+    background: #5a2a2a;
+    color: #ff9999;
   }
 }
